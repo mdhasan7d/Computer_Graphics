@@ -8,19 +8,19 @@
 using namespace std;
 
 void displayMenu() {
-    cout << " \n Menu Card \n\n";
-    cout << "1. Draw My Name\n";
-    cout << "2. Draw An Emoji\n";
-    cout << "3. Draw A HUT\n";
-    cout << "4. Draw A KITE\n";
-    cout << "5. Draw A Robot\n\n";
+    cout << " \n      Menu Card \n";
+    cout << " =================== \n\n";
+    cout << "   1. Draw My Name\n";
+    cout << "   2. Draw An Emoji\n";
+    cout << "   3. Draw A HUT\n";
+    cout << "   4. Draw A KITE\n";
+    cout << "   5. Draw A Robot\n";
+    cout << " =================== \n";
 }
 
-//1.MY Name
+// 1. Draw My Name
 void drawMyName() {
-    int gd = DETECT, gm;
-    initgraph(&gd, &gm, "Name");
-    initwindow(1000, 600);
+    initwindow(1000, 600, "NAME");
 
     // H
     line(100, 200, 100, 400);
@@ -44,15 +44,18 @@ void drawMyName() {
     line(600, 200, 650, 400);
     line(575, 300, 625, 300);
 
-    // N
+
+     // N
     line(700, 400, 700, 200);
     line(700, 200, 800, 400);
     line(800, 400, 800, 200);
 }
-//2.Draw Emoji
+
+
+
+// 2. Draw Emoji
 void drawEmoji() {
-    int gd = DETECT, gm;
-    initgraph(&gd, &gm, "");
+    initwindow(600, 600, "EMOJI");
 
     int X = 300, Y = 300;
     int R = 100;
@@ -113,10 +116,10 @@ void drawEmoji() {
 }
 
 
-//3.Draw Hut
+
+// 3. Draw Hut
 void drawHut() {
-    int gd = DETECT, gm;
-    initgraph(&gd, &gm, "");
+    initwindow(600, 600, "HUT");
 
     setcolor(WHITE);
     setfillstyle(SOLID_FILL, WHITE);
@@ -146,21 +149,19 @@ void drawHut() {
 }
 
 
-//4.Draw Kite
-void drawKite(int x, int y) {
 
+// 4. Draw Kite
+void drawKite(int x, int y) {
     setcolor(RED);
     setfillstyle(SOLID_FILL, CYAN);
     int points[] = {x, y, x + 100, y + 100, x, y + 200, x - 100, y + 100};
     fillpoly(4, points);
-
 
     setcolor(BLACK);
     line(x, y, x, y + 200);
 
     setcolor(YELLOW);
     line(x, y + 200, x, y + 300);
-
 
     for (int i = 1; i <= 5; i++) {
         int tailY = y + 200 + i * 20;
@@ -169,17 +170,13 @@ void drawKite(int x, int y) {
     }
 }
 
-
 void animateKite() {
-    int gd = DETECT, gm;
-    initgraph(&gd, &gm, "Kite Animation");
-
+    initwindow(1000, 600, "KITE");
 
     int startX = 50;
     int startY = getmaxy() - 50;
     int endX = getmaxx() - 50;
     int endY = 100;
-
 
     for (int x = startX, y = startY; x <= endX && y >= endY; x += 5, y -= 5) {
         cleardevice();
@@ -187,20 +184,17 @@ void animateKite() {
         delay(20);
     }
 
-    getch();
-    closegraph();
 }
 
 
-//5.Draw Robot
-void drawHeader() {
 
+// 5. Draw Robot
+void drawHeader() {
     setcolor(WHITE);
     settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
 
     int x = 10;
     int y = 10;
-
 
     outtextxy(x, y, "Name: R-2086");
     outtextxy(x + 250, y, "Version: 1.0");
@@ -264,9 +258,8 @@ void drawRobot(int x, int y) {
 }
 
 void drawMoveableRobot() {
-    int gd = DETECT, gm;
-    initgraph(&gd, &gm, "Moving Robot");
-    initwindow(1200, 600);
+
+    initwindow(1000, 800, "ROBOT");
 
     int x = 50, y = 200;
     int endX = getmaxx() - 150;
@@ -290,24 +283,18 @@ void drawMoveableRobot() {
         x -= 10;
     }
 
-    getch();
-    closegraph();
 }
 
 
+
 int main() {
-    int gd = DETECT, gm;
-    initgraph(&gd, &gm, "Hasan");
-
     int choice;
-    char cont = 'y';
+    char drawMore;
 
-    while (cont == 'y' || cont == 'Y') {
-        cleardevice();
+    displayMenu();
 
-        displayMenu();
-
-        cout << "Enter your choice: ";
+    do {
+        cout << " \n  Enter your choice: ";
         cin >> choice;
 
         switch (choice) {
@@ -327,15 +314,17 @@ int main() {
                 drawMoveableRobot();
                 break;
             default:
-                cout << "Invalid choice!\n";
+                cout << "Invalid choice, please select a valid option.";
                 break;
         }
 
-        cout << "Do you want to enter another choice? (y/n): " ;
-        cin >> cont ;
-    }
+        cout << "\n  Do you want to draw another picture? (y/n): ";
+        cin >> drawMore;
 
-    getch();
-    closegraph();
+        if (drawMore == 'y' || drawMore == 'Y') {
+            closegraph();
+        }
+    } while (drawMore == 'y' || drawMore == 'Y');
+
     return 0;
 }
